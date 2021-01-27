@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{welcome}"></title>
+</head>
+<body>
+<span sec:authentication="principal.authorities">Roles</span>
+<span th:text="#{hello}"></span>!<br>
+<span th:text="#{welcome}"></span><br>
+<button type="button" th:text="#{switch-en}" onclick="window.location.href='http://localhost:8080/?lang=en'"></button>
+<button type="button" th:text="#{switch-it}" onclick="window.location.href='http://localhost:8080/?lang=it'"></button>
+</body>
+</html>
