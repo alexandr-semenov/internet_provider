@@ -1,6 +1,6 @@
-package com.company.provider.test.config;
+package com.company.provider.config;
 
-import com.company.provider.test.service.UserService;
+import com.company.provider.service.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,8 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    final
-    UserService userService;
+    final UserService userService;
 
     public SecurityConfig(UserService userService) {
         this.userService = userService;
@@ -26,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").authenticated()
+                .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .and().formLogin()
                 .and().logout().logoutSuccessUrl("/welcome").permitAll()

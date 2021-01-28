@@ -1,4 +1,4 @@
-package com.company.provider.test.controller;
+package com.company.provider.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.company.provider.test.entity;
+package com.company.provider.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

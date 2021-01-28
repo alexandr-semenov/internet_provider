@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <meta charset="UTF-8">
     <title>Admin page</title>
 </head>
 <body>
-<span sec:authentication="principal.authorities">Roles</span>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <span sec:authentication="principal.authorities">Roles</span>
+
+            <p th:text="#{hello}">!</p>
+            <p th:text="#{welcome}"></p>
+
+            <button type="button" th:text="#{switch-en}" onclick="window.location.href = current_url + '?lang=en'"></button>
+            <button type="button" th:text="#{switch-ru}" onclick="window.location.href = current_url + '?lang=ru'"></button>
+        </div>
+    </div>
+</div>
+<div th:insert="footer"></div>
 </body>
 </html>

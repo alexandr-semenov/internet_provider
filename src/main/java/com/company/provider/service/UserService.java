@@ -1,7 +1,7 @@
-package com.company.provider.test.service;
+package com.company.provider.service;
 
-import com.company.provider.test.entity.User;
-import com.company.provider.test.repository.UserRepository;
+import com.company.provider.entity.User;
+import com.company.provider.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

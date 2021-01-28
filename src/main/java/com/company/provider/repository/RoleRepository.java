@@ -1,6 +1,6 @@
-package com.company.provider.test.repository;
+package com.company.provider.repository;
 
-import com.company.provider.test.entity.Role;
+import com.company.provider.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
