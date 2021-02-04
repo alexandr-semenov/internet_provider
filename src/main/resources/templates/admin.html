@@ -12,8 +12,7 @@
         <div class="col-sm">
             <span sec:authentication="principal.authorities">Roles</span>
 
-            <p th:text="#{hello}">!</p>
-            <p th:text="#{welcome}"></p>
+            <p th:text="#{internet_provider}">!</p>
 
             <button type="button" th:text="#{switch-en}" onclick="window.location.href = current_url + '?lang=en'"></button>
             <button type="button" th:text="#{switch-ru}" onclick="window.location.href = current_url + '?lang=ru'"></button>

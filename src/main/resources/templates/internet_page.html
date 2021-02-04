@@ -1,0 +1,36 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="col-sm">
+                <div class="card bg-info text-white banner-height">
+                    <div class="card-img-overlay">
+                        <div class="align-self-center banner-parent">
+                            <h3 class="card-text text-center banner-child" th:text="#{internet_page_title}"></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider">
+                    <div class="col-sm-4" th:each="tariff : ${product.getTariffs()}">
+                        <div class="card border-info" style="width: 20rem;">
+                            <div class="card-body text-center text-info">
+                                <h5 class="card-title" th:text="#{${tariff.name}}"></h5>
+                                <p class="card-text" th:text="#{${tariff.description}}"></p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" th:each="item : ${tariff.getItems()}" th:text="#{${item.getItem()}}"></li>
+                                </ul>
+                                <h5 class="card-footer" th:text="${tariff.getPrice()} + ' ' + #{cost_month}"></h5>
+                                <a th:href="@{/subscription/{productId}/{tariffId}(productId = ${product.id}, tariffId = ${tariff.id})}"
+                                   class="btn btn-info text-white" th:text="#{order_button}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+</html>

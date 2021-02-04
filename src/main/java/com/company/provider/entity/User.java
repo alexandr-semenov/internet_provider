@@ -25,6 +25,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToOne(mappedBy = "user")
+    private Subscription subscription;
+
     public User() {
     }
 

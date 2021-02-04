@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card border-info banner-height">
+                <div class="card-img-overlay">
+                    <div class="align-self-center banner-parent">
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{ordering_services_title}"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mx-auto">
+                    <form id="subscription-form" action="/subscribe">
+                        <div class="mb-3">
+                            <select id="productSelect" class="form-select form-control border-info text-info" name="productId">
+                                <option th:value="${product.id}" th:each="product : ${products}" th:selected="${product.id == product_id}" th:text="#{${product.name}}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <select id="tariffSelect" class="form-select border-info text-info" name="tariffId">
+                                <option th:value="${tariff.id}" th:each="tariff : ${tariffs}" th:selected="${tariff.id == tariff_id}" th:text="#{${tariff.name}}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <input id="username" class="form-control border-info text-info" type="text" name="username" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <input id="password" class="form-control border-info text-info" type="password" name="password" value="">
+                        </div>
+
+                        <div class="col text-center">
+                            <button id="send" class="btn btn-info text-white" type="button" th:text="#{send_button}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+</html>
