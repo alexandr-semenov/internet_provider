@@ -31,7 +31,6 @@ $( document ).ready(function () {
             data[n['name']] = n['value'];
         });
 
-
         $.ajax({
             traditional: true,
             type: "POST",
@@ -40,17 +39,31 @@ $( document ).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (response) {
-                let alert = $("#success-alert");
-                let alertBody = $("#success-alert .alert-body");
-
-                showAlert(alert, alertBody, response.status);
+                showSuccessAlert(response.message);
             },
             error: function (response) {
-                let jsonResponse = JSON.parse(response.responseText);
-                let alert = $("#error-alert");
-                let alertBody = $("#error-alert .alert-body");
+                let responseBody = JSON.parse(response.responseText);
+                showErrorAlert(responseBody.errors);
+            }
+        });
+    });
 
-                showAlert(alert, alertBody, jsonResponse.message);
+    $(".activate").on("click", function () {
+        let url = "/admin/activate-user/" + $(this).attr("attr-user");
+
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: function (response) {
+                showSuccessAlert(response.message);
+
+                setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            },
+            error: function (response) {
+                let responseBody = JSON.parse(response.responseText);
+                showErrorAlert(responseBody.errors);
             }
         });
     });

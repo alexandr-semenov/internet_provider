@@ -8,11 +8,31 @@ function addOptionsToSelect(select, response) {
     });
 }
 
-function showAlert(alert, body, message) {
+function showSuccessAlert(message) {
+    let alert = $("#success-alert");
+    let body = alert.find(".alert-body");
+
     body.empty();
-    body.append(message);
+    body.append("<p>" + message + "</p>");
 
     alert.fadeIn();
+
+    setTimeout(function(){
+        alert.fadeOut();
+    }, 4000);
+}
+
+function showErrorAlert(messages) {
+    let alert = $("#error-alert");
+    let body = alert.find(".alert-body");
+
+    body.empty();
+    for (let message of messages) {
+        body.append("<p>" + message + "</p>");
+    }
+
+    alert.fadeIn();
+
     setTimeout(function(){
         alert.fadeOut();
     }, 4000);

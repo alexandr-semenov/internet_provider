@@ -5,14 +5,16 @@ import com.company.provider.dto.SubscriptionDto;
 import com.company.provider.entity.Product;
 import com.company.provider.service.ProductService;
 import com.company.provider.service.SubscriptionService;
+import com.company.provider.utils.ApiResponse;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
 
 @Controller
 public class SubscriptionController {
@@ -44,16 +46,17 @@ public class SubscriptionController {
 
     @PostMapping("/subscribe")
     public @ResponseBody
-    Map<String, String> subscribe(@RequestBody SubscriptionDto subscriptionDto) {
+    ResponseEntity<ApiResponse> subscribe(@Valid @RequestBody SubscriptionDto subscriptionDto) {
         try {
             subscriptionService.subscribe(subscriptionDto);
         } catch (Exception e) {
             throw new RestException(e.getMessage(), e.getCause(), false, false);
         }
 
-        Map<String, String> response = new HashMap<>() {{
-            put("status", messageSource.getMessage("order_created_message", null, LocaleContextHolder.getLocale()));
-        }};
-        return response;
+        ApiResponse apiResponse = new ApiResponse(
+                HttpStatus.CREATED, messageSource.getMessage("order_created_message", null, LocaleContextHolder.getLocale())
+        );
+
+        return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
     }
 }

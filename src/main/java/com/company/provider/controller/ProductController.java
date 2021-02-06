@@ -22,9 +22,9 @@ public class ProductController {
         this.messageSource = messageSource;
     }
 
-    @GetMapping("/product/{product_id}")
-    public List<TariffDto> getProduct(@PathVariable Long product_id) {
-        Product product = productService.getProduct(product_id);
+    @GetMapping("/product/{productId}")
+    public List<TariffDto> getProduct(@PathVariable Long productId) {
+        Product product = productService.getProduct(productId);
 
         List<TariffDto> tariffs = product.getTariffs().stream().map(tariff -> new TariffDto(tariff.getId(),
                 messageSource.getMessage(tariff.getName(), null, LocaleContextHolder.getLocale())

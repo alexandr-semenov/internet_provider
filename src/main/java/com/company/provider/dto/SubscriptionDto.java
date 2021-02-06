@@ -1,12 +1,16 @@
 package com.company.provider.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class SubscriptionDto {
     private int productId;
 
     private Long tariffId;
 
+    @NotEmpty(message = "username_empty_error")
     private String username;
 
+    @NotEmpty(message = "password_empty_error")
     private String password;
 
     public SubscriptionDto() {
