@@ -2,18 +2,18 @@
 <body xmlns:th="http://www.thymeleaf.org">
 <div th:replace="nav-bar"></div>
 <div class="container">
-    <div class="row">
+    <div class="row admin">
         <div class="col-sm">
-            <div class="card border-primary banner-height">
+            <div class="card border-info banner-height">
                 <div class="card-img-overlay">
                     <div class="align-self-center banner-parent">
-                        <h3 class="card-text text-center banner-child text-primary" th:text="#{pending_users_title}"></h3>
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{pending_users_title}"></h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 mx-auto">
-                    <table class="table table-bordered border-primary text-center text-primary">
+                    <table class="table table-bordered border-info text-center text-info">
                         <thead>
                         <tr>
                             <td>#</td>
@@ -28,7 +28,7 @@
                             <td th:text="${user.getUsername()}"></td>
                             <td th:text="${user.active}"></td>
                             <td>
-                                <button class="activate btn btn-primary" th:attr-user="${user.getId()}">Activate
+                                <button class="activate btn btn-info text-white" th:attr-user="${user.getId()}">Activate
                                 </button>
                                 </a>
                             </td>
@@ -40,8 +40,8 @@
                         <ul class="pagination pagination-sm">
                             <li th:if="${page.totalPages > 0}"
                                 th:each="pageNumber : ${pageNumbers}"
-                                th:class="${pageNumber==page.number + 1} ? 'page-item active' : 'page-item'">
-                                <a class="page-link"
+                                th:class="${pageNumber == page.number + 1} ? 'page-item active' : 'page-item'">
+                                <a class="page-link text-info"
                                    th:href="@{/admin/pending-users(page=${pageNumber}, size=${page.size})}"
                                    th:text=${pageNumber}></a>
                             </li>

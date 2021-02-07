@@ -1,11 +1,13 @@
 package com.company.provider.config;
 
 import com.company.provider.exeption.ApiError;
+import com.company.provider.exeption.RestException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,6 +43,15 @@ public class ErrorHandler {
         }
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), errors);
+
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleEntityException(HttpMessageNotReadableException e) {
+        String message = messageSource.getMessage("wrong_data_type_error", null, LocaleContextHolder.getLocale());
+
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), message);
 
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }

@@ -17,9 +17,7 @@ function showSuccessAlert(message) {
 
     alert.fadeIn();
 
-    setTimeout(function(){
-        alert.fadeOut();
-    }, 4000);
+
 }
 
 function showErrorAlert(messages) {

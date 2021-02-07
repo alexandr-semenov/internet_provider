@@ -34,8 +34,6 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String admin() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         return "admin/main";
     }
 
@@ -68,4 +66,10 @@ public class AdminController {
 
         return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
     }
+
+    @GetMapping("/admin/tariff")
+    public String editTariffs() {
+        return "admin/edit-tariff";
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.company.provider.config;
+package com.company.provider.exeption;
 
 public class RestException extends RuntimeException {
     public RestException() {

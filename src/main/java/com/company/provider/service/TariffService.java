@@ -1,6 +1,6 @@
 package com.company.provider.service;
 
-import com.company.provider.config.RestException;
+import com.company.provider.exeption.RestException;
 import com.company.provider.entity.Tariff;
 import com.company.provider.repository.TariffRepository;
 import org.springframework.stereotype.Service;

@@ -11,7 +11,7 @@ public class Account {
 
     private Double amount;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name = "user_id")
     private User user;
 

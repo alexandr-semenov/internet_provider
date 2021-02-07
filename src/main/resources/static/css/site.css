@@ -61,3 +61,18 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+#subscription-form ::placeholder {
+    color: #0dcaf0;
+    opacity: 1;
+}
+#deposit-form ::placeholder {
+    color: #0d6efd ;
+    opacity: 1;
+}
+
+.admin .pagination li.page-item.active .page-link {
+    background-color: #0dcaf0 !important;
+    border-color: #0dcaf0 !important;
+    color: #fff !important;
+}

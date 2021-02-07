@@ -1,5 +1,7 @@
 package com.company.provider.service;
 
+import com.company.provider.exeption.InsufficientFundsException;
+import com.company.provider.exeption.RestException;
 import com.company.provider.dto.SubscriptionDto;
 import com.company.provider.entity.*;
 import com.company.provider.repository.SubscriptionRepository;
@@ -11,7 +13,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Transactional(isolation = Isolation.READ_COMMITTED)
 public class SubscriptionService {
     private SubscriptionRepository subscriptionRepository;
     private UserService userService;
@@ -33,6 +34,7 @@ public class SubscriptionService {
         this.statusService = statusService;
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void subscribe(SubscriptionDto subscriptionDto) {
         User user = userService.createUser(subscriptionDto);
         accountService.createAccount(user);
@@ -47,7 +49,7 @@ public class SubscriptionService {
         createSubscription(user, tariffs, status);
     }
 
-    public Subscription createSubscription(User user, Set<Tariff> tariffs, Status status) {
+    public void createSubscription(User user, Set<Tariff> tariffs, Status status) {
         Double price = tariffs.stream().map(Tariff::getPrice).reduce(0.0, Double::sum);
 
         Subscription subscription = new Subscription();
@@ -56,6 +58,26 @@ public class SubscriptionService {
         subscription.setTariffs(tariffs);
         subscription.setPrice(price);
 
-        return subscriptionRepository.save(subscription);
+        subscriptionRepository.save(subscription);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void tryToActivateSubscription(User user) {
+        try {
+            Subscription subscription = user.getSubscription();
+            accountService.debitAccount(user.getAccount(), subscription.getPrice());
+
+            Status status = statusService.getStatusByName("ACTIVE");
+
+            changeStatus(subscription, status);
+        } catch (InsufficientFundsException e) {
+            //TODO log failed activation
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeStatus(Subscription subscription, Status status) {
+        subscription.setStatus(status);
+        subscriptionRepository.save(subscription);
     }
 }

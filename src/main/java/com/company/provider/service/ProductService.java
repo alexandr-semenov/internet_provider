@@ -1,6 +1,6 @@
 package com.company.provider.service;
 
-import com.company.provider.config.RestException;
+import com.company.provider.exeption.RestException;
 import com.company.provider.entity.Product;
 import com.company.provider.repository.ProductRepository;
 import org.springframework.stereotype.Service;

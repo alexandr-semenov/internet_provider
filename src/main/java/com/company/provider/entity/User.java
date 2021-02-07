@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -27,6 +28,9 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user")
     private Subscription subscription;
+
+    @OneToOne(mappedBy = "user")
+    private Account account;
 
     public User() {
     }
@@ -104,5 +108,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }

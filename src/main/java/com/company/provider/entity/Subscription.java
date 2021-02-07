@@ -14,7 +14,7 @@ public class Subscription {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "subscription_tariff",
             joinColumns = @JoinColumn(name = "subscription_id"),

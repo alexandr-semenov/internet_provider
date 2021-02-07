@@ -4,6 +4,7 @@ import com.company.provider.entity.Product;
 import com.company.provider.entity.User;
 import com.company.provider.service.ProductService;
 import com.company.provider.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +33,6 @@ public class MainController {
         List<Product> productsList = productService.findAll();
 
         model.addAttribute("products", productsList);
-
-        UserDetails user = userService.loadUserByUsername("username");
 
         return "main";
     }

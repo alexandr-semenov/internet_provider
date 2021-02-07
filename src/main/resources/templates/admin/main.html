@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin main</title>
-</head>
-<body>
-Admin main
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card border-info banner-height">
+                <div class="card-img-overlay">
+                    <div class="align-self-center banner-parent">
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{admin}"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mx-auto">
+                    <h4 class="text-info">Admin options</h4>
+                    <table class="table table-bordered border-info text-center text-info">
+                        <thead>
+                            <tr>
+                                <td valign="middle">Activate new users</td>
+                                <td><a href="/admin/pending-users" class="btn btn-info text-white" type="button">Activate</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td valign="middle">Edit tariffs</td>
+                                <td><a href="/admin/tariff" class="btn btn-info text-white" type="button">Edit tariffs</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
 </html>

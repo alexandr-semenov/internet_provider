@@ -1,0 +1,76 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card border-primary banner-height">
+                <div class="card-img-overlay">
+                    <div class="align-self-center banner-parent">
+                        <h3 class="card-text text-center banner-child text-primary" th:text="#{cabinet_title}"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mx-auto">
+                    <h4 class="text-primary" th:text="#{subscription}"></h4>
+                    <table class="table table-bordered border-primary text-center text-primary">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td th:text="#{tariff_name_title}"></td>
+                                <td th:text="#{tariff_description_title}"></td>
+                                <td th:text="#{tariff_price_title}"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="tariff : ${user.subscription.tariffs}">
+                                <td th:text="${tariff.id}"></td>
+                                <td th:text="#{${tariff.name}}"></td>
+                                <td th:text="${tariff.description != null} ? #{${tariff.description}} : '–'"></td>
+                                <td th:text="${tariff.price}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: left;" th:text="#{total}"></td>
+                                <td th:text="${user.subscription.price}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="text-primary" th:text="#{subscription_status}"></h4>
+                    <table class="table table-bordered border-primary text-center text-primary">
+                        <tbody>
+                            <tr>
+                                <td valign="middle" th:text="#{status}"></td>
+                                <td valign="middle" th:text="#{${user.subscription.status.name}}" th:class="${user.subscription.status.name == 'NOT_ACTIVE' ? 'text-danger' : 'text-success' }"></td>
+                            </tr>
+                            <tr>
+                                <td th:text="#{amount_to_be_paid}"></td>
+                                <td th:text="${user.subscription.price - user.account.amount}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="text-primary" th:text="#{balance}"></h4>
+                    <table class="table table-bordered border-primary text-center text-primary">
+                        <thead>
+                            <tr>
+                                <td th:text="#{current_balance}"></td>
+                                <td th:text="${user.account.amount}"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><a href="/cabinet/deposit" class="btn btn-primary" type="button" th:text="#{deposit}"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+</html>
