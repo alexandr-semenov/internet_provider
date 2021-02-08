@@ -5,6 +5,7 @@ import com.company.provider.dto.SubscriptionDto;
 import com.company.provider.entity.Product;
 import com.company.provider.service.ProductService;
 import com.company.provider.service.SubscriptionService;
+import com.company.provider.service.TariffService;
 import com.company.provider.utils.ApiResponse;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -20,26 +21,25 @@ import javax.validation.Valid;
 public class SubscriptionController {
     private final ProductService productService;
     private SubscriptionService subscriptionService;
+    private TariffService tariffService;
     private ResourceBundleMessageSource messageSource;
 
     public SubscriptionController(
             ProductService productService,
             SubscriptionService subscriptionService,
+            TariffService tariffService,
             ResourceBundleMessageSource messageSource
     ) {
         this.productService = productService;
         this.subscriptionService = subscriptionService;
+        this.tariffService = tariffService;
         this.messageSource = messageSource;
     }
 
-    @GetMapping("/subscription/{product_id}/{tariff_id}")
-    public String subscription(@PathVariable Long product_id, @PathVariable int tariff_id, Model model) {
-        Product product = productService.getProduct(product_id);
-
-        model.addAttribute("product_id", product_id);
+    @GetMapping("/subscription/{tariff_id}")
+    public String subscription(@PathVariable int tariff_id, Model model) {
         model.addAttribute("tariff_id", tariff_id);
-        model.addAttribute("products", productService.findAll());
-        model.addAttribute("tariffs", product.getTariffs());
+        model.addAttribute("tariffsAll", tariffService.loadAllTariffs());
 
         return "subscription_page";
     }

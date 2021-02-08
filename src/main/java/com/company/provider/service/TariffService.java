@@ -32,6 +32,10 @@ public class TariffService {
         this.entityManager = entityManager;
     }
 
+    public List<Tariff> loadAllTariffs() {
+        return tariffRepository.findAll();
+    }
+
     public List<Tariff> loadMultipleTariff(List<Long> ids) {
         List<Tariff> tariffs = entityManager
                 .createQuery("select t from Tariff t where t.id in (:tariffIds)", Tariff.class)

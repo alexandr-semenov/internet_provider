@@ -15,14 +15,8 @@
                 <div class="col-sm-4 mx-auto">
                     <form id="subscription-form" action="/subscribe">
                         <div class="mb-3">
-                            <select id="productSelect" class="form-select form-control border-info text-info" name="productId">
-                                <option th:value="${product.id}" th:each="product : ${products}" th:selected="${product.id == product_id}" th:text="#{${product.name}}"></option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <select id="tariffSelect" class="form-select border-info text-info" name="tariffId">
-                                <option th:value="${tariff.id}" th:each="tariff : ${tariffs}" th:selected="${tariff.id == tariff_id}" th:text="#{${tariff.name}}"></option>
+                            <select id="tariffAllSelect" class="form-select border-info text-info" multiple>
+                                <option class="tariffIds" th:value="${tariff.id}" th:each="tariff : ${tariffsAll}" th:selected="${tariff.id == tariff_id}" th:text="#{${tariff.product.name}} + ' - ' + #{${tariff.name}}"></option>
                             </select>
                         </div>
 

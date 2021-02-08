@@ -5,22 +5,6 @@ $( document ).ready(function () {
         slidesToScroll: 3
     });
 
-    $("#productSelect").on("change", function () {
-        let element = $(this).find('option:selected');
-        let url = "/product/" + element.val();
-
-        $.ajax({
-            url: url,
-            method: "GET",
-            success: function (response) {
-                let tariffSelect = $('#tariffSelect');
-                clearOptions(tariffSelect);
-
-                addOptionsToSelect(tariffSelect, response);
-            }
-        });
-    });
-
     $("#send").on("click", function () {
         let form = $("#subscription-form");
         let url = form.attr("action");
@@ -29,6 +13,13 @@ $( document ).ready(function () {
         let data = {};
         $.map(array, function(n, i){
             data[n['name']] = n['value'];
+        });
+
+
+        let selectedOptions = $("#tariffAllSelect").val();
+        data["tariffs"] = [];
+        $(selectedOptions).each( function (index, value) {
+            data.tariffs[index] = {"id": value};
         });
 
         $.ajax({

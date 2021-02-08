@@ -1,6 +1,7 @@
 package com.company.provider.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +21,7 @@ public class Subscription {
             joinColumns = @JoinColumn(name = "subscription_id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_id")
     )
-    Set<Tariff> tariffs;
+    List<Tariff> tariffs;
 
     @ManyToOne()
     @JoinColumn(name = "status_id")
@@ -47,11 +48,11 @@ public class Subscription {
         this.user = user;
     }
 
-    public Set<Tariff> getTariffs() {
+    public List<Tariff> getTariffs() {
         return tariffs;
     }
 
-    public void setTariffs(Set<Tariff> tariffs) {
+    public void setTariffs(List<Tariff> tariffs) {
         this.tariffs = tariffs;
     }
 

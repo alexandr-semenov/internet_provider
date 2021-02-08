@@ -1,16 +1,19 @@
 package com.company.provider.service;
 
-import com.company.provider.exeption.InsufficientFundsException;
-import com.company.provider.exeption.RestException;
 import com.company.provider.dto.SubscriptionDto;
-import com.company.provider.entity.*;
+import com.company.provider.dto.TariffDto;
+import com.company.provider.entity.Status;
+import com.company.provider.entity.Subscription;
+import com.company.provider.entity.Tariff;
+import com.company.provider.entity.User;
+import com.company.provider.exeption.InsufficientFundsException;
 import com.company.provider.repository.SubscriptionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SubscriptionService {
@@ -37,20 +40,18 @@ public class SubscriptionService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void subscribe(SubscriptionDto subscriptionDto) {
         User user = userService.createUser(subscriptionDto);
-
         accountService.createAccount(user);
 
-        Tariff tariff = tariffService.loadTariffById(subscriptionDto.getTariffId());
+        List<Long> ids = subscriptionDto.getTariffs().stream().map(TariffDto::getId).collect(Collectors.toList());
 
-        Set<Tariff> tariffs = new HashSet<>();
-        tariffs.add(tariff);
+        List<Tariff> tariffs = tariffService.loadMultipleTariff(ids);
 
         Status status = statusService.getStatusByName("NOT_ACTIVE");
 
         createSubscription(user, tariffs, status);
     }
 
-    public void createSubscription(User user, Set<Tariff> tariffs, Status status) {
+    public void createSubscription(User user, List<Tariff> tariffs, Status status) {
         Double price = tariffs.stream().map(Tariff::getPrice).reduce(0.0, Double::sum);
 
         Subscription subscription = new Subscription();

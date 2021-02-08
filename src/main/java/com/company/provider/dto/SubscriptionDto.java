@@ -1,11 +1,12 @@
 package com.company.provider.dto;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 public class SubscriptionDto {
     private int productId;
 
-    private Long tariffId;
+    private List<TariffDto> tariffs;
 
     @NotEmpty(message = "username_empty_error")
     private String username;
@@ -16,9 +17,9 @@ public class SubscriptionDto {
     public SubscriptionDto() {
     }
 
-    public SubscriptionDto(int productId, Long tariffId, String username, String password) {
+    public SubscriptionDto(int productId, List<TariffDto> tariffs, @NotEmpty(message = "username_empty_error") String username, @NotEmpty(message = "password_empty_error") String password) {
         this.productId = productId;
-        this.tariffId = tariffId;
+        this.tariffs = tariffs;
         this.username = username;
         this.password = password;
     }
@@ -31,12 +32,12 @@ public class SubscriptionDto {
         this.productId = productId;
     }
 
-    public Long getTariffId() {
-        return tariffId;
+    public List<TariffDto> getTariffs() {
+        return tariffs;
     }
 
-    public void setTariffId(Long tariffId) {
-        this.tariffId = tariffId;
+    public void setTariffs(List<TariffDto> tariffs) {
+        this.tariffs = tariffs;
     }
 
     public String getUsername() {

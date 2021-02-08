@@ -21,7 +21,7 @@
                                 <li class="list-group-item" th:each="item : ${tariff.getOptions()}" th:text="#{${item.getItem()}}"></li>
                             </ul>
                             <h5 class="card-footer" th:text="${tariff.getPrice()} + ' ' + #{cost_month}"></h5>
-                            <a th:href="@{/subscription/{productId}/{tariffId}(productId = ${product.id}, tariffId = ${tariff.id})}"
+                            <a th:href="@{/subscription/{tariffId}(tariffId = ${tariff.id})}"
                                class="btn btn-primary" th:text="#{order_button}"></a>
                         </div>
                     </div>
