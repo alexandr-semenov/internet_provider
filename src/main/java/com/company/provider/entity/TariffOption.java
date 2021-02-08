@@ -3,8 +3,8 @@ package com.company.provider.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tariff_item")
-public class TariffItem {
+@Table(name = "tariff_option")
+public class TariffOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,7 @@ public class TariffItem {
     @JoinColumn(name = "tariff_id")
     private Tariff tariff;
 
-    public TariffItem() {
+    public TariffOption() {
     }
 
     public Long getId() {
@@ -32,5 +32,13 @@ public class TariffItem {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public Tariff getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
     }
 }

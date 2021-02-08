@@ -7,14 +7,47 @@
             <div class="card border-info banner-height">
                 <div class="card-img-overlay">
                     <div class="align-self-center banner-parent">
-                        <h3 class="card-text text-center banner-child text-info" th:text="#{edit_tariffs}"></h3>
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{edit_tariff}"></h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 mx-auto">
-                    <h4 class="text-info">Admin options</h4>
+                    <form id="createTariffForm" action="/admin/tariff/" method="PUT">
+                        <input id="tariffId" type="hidden" name="id" th:value="${tariff.id}">
+                        <select id="editTariffProductSelect" class="form-select form-control border-info text-info mb-3" name="productId">
+                            <option th:value="${product.id}" th:each="product : ${products}" th:selected="${product.id == tariff.product.id}" th:text="#{${product.name}}"></option>
+                        </select>
+                        <div class="mb-3">
+                            <input id="name" class="form-control border-info text-info" th:placeholder="#{tariff_name}" type="text" name="name" th:value="${tariff.name}">
+                        </div>
+                        <div class="mb-3">
+                            <input id="description" class="form-control border-info text-info" th:placeholder="#{tariff_description}" type="text" name="description" th:value="${tariff.description != null} ? ${tariff.description} : ''">
+                        </div>
+                        <div class="mb-3">
+                            <input id="cost" class="form-control border-info text-info" th:placeholder="#{tariff_cost}" type="text" name="price" th:value="${tariff.price}">
+                        </div>
+                    </form>
 
+                    <div class="col text-center mb-3">
+                        <button id="tariffUpdate" class="btn btn-info text-white" type="button" th:text="#{edit}"></button>
+                    </div>
+
+                    <h5 class="text-info" th:text="#{tariff_options}"></h5>
+                    <table id="editTariffOptionTable" class="table table-bordered border-info text-center text-info">
+                        <tr th:each="tariffItem : ${tariff.options}">
+                            <td><input class="tariffOption form-control border-info text-info tariff-option" th:placeholder="#{tariff_option}" type="text" th:value="${tariffItem.item}"></td>
+                            <td><button class="editTariffOption btn border-warning text-warning" th:attr-id="${tariffItem.id}" th:text="#{edit}">Edit</button></td>
+                            <td><button class="deleteTariffOption btn border-danger text-danger" th:attr-id="${tariffItem.id}" th:text="#{delete}">Delete</button></td>
+                        </tr>
+                    </table>
+
+                    <div class="col text-center mb-3">
+                        <button id="addNewTariffOptionTable" class="btn btn-info text-white" type="button" th:text="#{add_option}"></button>
+                    </div>
+
+                    <div id="optionLabel" style="display: none" th:text="#{tariff_option}"></div>
+                    <div id="createLabel" style="display: none" th:text="#{create}"></div>
                 </div>
             </div>
         </div>
@@ -22,4 +55,5 @@
 </div>
 </body>
 <div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+<script type="text/javascript" src="/js/edit-tariff.js"></script>
 </html>

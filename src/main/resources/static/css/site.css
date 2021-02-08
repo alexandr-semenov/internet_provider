@@ -62,7 +62,7 @@
     margin-right: auto;
 }
 
-#subscription-form ::placeholder {
+#subscription-form ::placeholder, #createTariffForm ::placeholder, #editTariffOptionTable ::placeholder{
     color: #0dcaf0;
     opacity: 1;
 }

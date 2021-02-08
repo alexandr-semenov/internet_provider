@@ -1,0 +1,52 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card border-info banner-height">
+                <div class="card-img-overlay">
+                    <div class="align-self-center banner-parent">
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{create_tariff}"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mx-auto">
+                    <form id="createTariffForm" action="/admin/tariff" method="POST">
+                        <div class="mb-3">
+                            <select id="editTariffProductSelect" class="form-select form-control border-info text-info mb-3" name="productId">
+                                <option th:value="${product.id}" th:each="product : ${products}" th:text="#{${product.name}}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input id="name" class="form-control border-info text-info" th:placeholder="#{tariff_name}" type="text" name="name" value="">
+                        </div>
+                        <div class="mb-3">
+                            <input id="description" class="form-control border-info text-info" th:placeholder="#{tariff_description}" type="text" name="description" value="">
+                        </div>
+                        <div class="mb-3">
+                            <input id="cost" class="form-control border-info text-info" th:placeholder="#{tariff_cost}" type="text" name="price" value="">
+                        </div>
+                        <div class="mb-3">
+                            <input class="tariffOption form-control border-info text-info tariff-option" th:placeholder="#{tariff_option}" type="text" value="">
+                        </div>
+                    </form>
+
+                    <div class="col text-center mb-3">
+                        <button id="addNewTariffOption" class="btn btn-info text-white" type="button" th:text="#{add_option}"></button>
+                    </div>
+                    <div class="col text-center mb-3">
+                        <button id="tariffCreate" class="btn btn-info text-white" type="button" th:text="#{create}"></button>
+                    </div>
+
+                    <div id="optionLabel" style="display: none" th:text="#{tariff_option}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+<script type="text/javascript" src="/js/edit-tariff.js"></script>
+</html>

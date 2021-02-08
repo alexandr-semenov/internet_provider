@@ -22,7 +22,7 @@ public class Tariff {
     private Product product;
 
     @OneToMany(mappedBy = "tariff")
-    private List<TariffItem> items;
+    private List<TariffOption> options;
 
     @ManyToMany(mappedBy = "tariffs")
     private Set<Subscription> subscriptions;
@@ -67,8 +67,8 @@ public class Tariff {
         this.price = price;
     }
 
-    public List<TariffItem> getItems() {
-        return items;
+    public List<TariffOption> getOptions() {
+        return options;
     }
 
     public Product getProduct() {
@@ -79,8 +79,8 @@ public class Tariff {
         this.product = product;
     }
 
-    public void setItems(List<TariffItem> items) {
-        this.items = items;
+    public void setOptions(List<TariffOption> items) {
+        this.options = items;
     }
 
     public Set<Subscription> getSubscriptions() {

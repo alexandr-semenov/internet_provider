@@ -1,6 +1,9 @@
 package com.company.provider.controller;
 
+import com.company.provider.entity.Tariff;
 import com.company.provider.entity.User;
+import com.company.provider.service.ProductService;
+import com.company.provider.service.TariffService;
 import com.company.provider.service.UserService;
 import com.company.provider.utils.ApiResponse;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -8,7 +11,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +24,19 @@ import java.util.stream.IntStream;
 @Controller
 public class AdminController {
     private final UserService userService;
-    private ResourceBundleMessageSource messageSource;
+    private final ProductService productService;
+    private TariffService tariffService;
+    private final ResourceBundleMessageSource messageSource;
 
     public AdminController(
             UserService userService,
+            ProductService productService,
+            TariffService tariffService,
             ResourceBundleMessageSource messageSource
     ) {
         this.userService = userService;
+        this.productService = productService;
+        this.tariffService = tariffService;
         this.messageSource = messageSource;
     }
 
@@ -68,7 +76,26 @@ public class AdminController {
     }
 
     @GetMapping("/admin/tariff")
-    public String editTariffs() {
+    public String editTariffs(Model model) {
+        model.addAttribute("products", productService.findAll());
+
+        return "admin/edit-tariffs";
+    }
+
+    @GetMapping("/admin/tariff/create")
+    public String createTariffs(Model model) {
+        model.addAttribute("products", productService.findAll());
+
+        return "admin/create-tariff";
+    }
+
+    @GetMapping("/admin/tariff/{id}")
+    public String createTariffs(Model model, @PathVariable Long id) {
+        Tariff tariff = tariffService.loadTariffById(id);
+
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("tariff", tariff);
+
         return "admin/edit-tariff";
     }
 

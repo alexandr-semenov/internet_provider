@@ -37,6 +37,7 @@ public class SubscriptionService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void subscribe(SubscriptionDto subscriptionDto) {
         User user = userService.createUser(subscriptionDto);
+
         accountService.createAccount(user);
 
         Tariff tariff = tariffService.loadTariffById(subscriptionDto.getTariffId());

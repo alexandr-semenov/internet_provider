@@ -13,18 +13,22 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 mx-auto">
-                    <h4 class="text-info">Admin options</h4>
+                    <h4 class="text-info" th:text="#{admin_options}"></h4>
                     <table class="table table-bordered border-info text-center text-info">
                         <thead>
                             <tr>
-                                <td valign="middle">Activate new users</td>
-                                <td><a href="/admin/pending-users" class="btn btn-info text-white" type="button">Activate</a></td>
+                                <td valign="middle" th:text="#{activate_new_users}"></td>
+                                <td><a href="/admin/pending-users" class="btn btn-info text-white" type="button" th:text="#{activate}"></a></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td valign="middle">Edit tariffs</td>
-                                <td><a href="/admin/tariff" class="btn btn-info text-white" type="button">Edit tariffs</a></td>
+                                <td valign="middle" th:text="#{edit_tariffs}"></td>
+                                <td><a href="/admin/tariff" class="btn btn-info text-white" type="button" th:text="#{edit}"></a></td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" th:text="#{create_tariff}"></td>
+                                <td><a href="/admin/tariff/create" class="btn btn-info text-white" type="button" th:text="#{create}"></a></td>
                             </tr>
                         </tbody>
                     </table>

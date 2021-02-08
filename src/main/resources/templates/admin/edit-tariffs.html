@@ -1,0 +1,36 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="header"></div>
+<body xmlns:th="http://www.thymeleaf.org">
+<div th:replace="nav-bar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card border-info banner-height">
+                <div class="card-img-overlay">
+                    <div class="align-self-center banner-parent">
+                        <h3 class="card-text text-center banner-child text-info" th:text="#{edit_tariffs}"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mx-auto">
+                    <h5 class="text-info" th:text="#{service}"></h5>
+                    <select id="editTariffProductSelect" class="form-select form-control border-info text-info mb-3">
+                        <option th:value="${product.id}" th:each="product : ${products}" th:text="#{${product.name}}"></option>
+                    </select>
+
+                    <h5 class="text-info" th:text="#{tariffs}"></h5>
+                    <table id="editTariffTables" class="table table-bordered border-info text-center text-info">
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <div id="editLabel" style="display: none" th:text="#{edit}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="footer"></div>
+<script type="text/javascript" src="/js/edit-tariff.js"></script>
+</html>
