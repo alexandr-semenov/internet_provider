@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 public class AdminController {
     private final UserService userService;
     private final ProductService productService;
-    private TariffService tariffService;
+    private final TariffService tariffService;
     private final ResourceBundleMessageSource messageSource;
 
     public AdminController(

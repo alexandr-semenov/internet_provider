@@ -20,9 +20,9 @@ import javax.validation.Valid;
 
 @Controller
 public class CabinetController {
-    private AccountService accountService;
-    private SubscriptionService subscriptionService;
-    private ResourceBundleMessageSource messageSource;
+    private final AccountService accountService;
+    private final SubscriptionService subscriptionService;
+    private final ResourceBundleMessageSource messageSource;
 
     public CabinetController(
             AccountService accountService,
@@ -52,6 +52,7 @@ public class CabinetController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         accountService.depositAccount(user.getAccount(), amountDto.getAmount());
+
         subscriptionService.tryToActivateSubscription(user);
 
         ApiResponse apiResponse = new ApiResponse(

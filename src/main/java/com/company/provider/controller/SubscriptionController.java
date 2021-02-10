@@ -1,9 +1,7 @@
 package com.company.provider.controller;
 
-import com.company.provider.exeption.RestException;
 import com.company.provider.dto.SubscriptionDto;
-import com.company.provider.entity.Product;
-import com.company.provider.service.ProductService;
+import com.company.provider.exeption.RestException;
 import com.company.provider.service.SubscriptionService;
 import com.company.provider.service.TariffService;
 import com.company.provider.utils.ApiResponse;
@@ -19,18 +17,15 @@ import javax.validation.Valid;
 
 @Controller
 public class SubscriptionController {
-    private final ProductService productService;
-    private SubscriptionService subscriptionService;
-    private TariffService tariffService;
-    private ResourceBundleMessageSource messageSource;
+    private final SubscriptionService subscriptionService;
+    private final TariffService tariffService;
+    private final ResourceBundleMessageSource messageSource;
 
     public SubscriptionController(
-            ProductService productService,
             SubscriptionService subscriptionService,
             TariffService tariffService,
             ResourceBundleMessageSource messageSource
     ) {
-        this.productService = productService;
         this.subscriptionService = subscriptionService;
         this.tariffService = tariffService;
         this.messageSource = messageSource;
@@ -45,8 +40,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/subscribe")
-    public @ResponseBody
-    ResponseEntity<ApiResponse> subscribe(@Valid @RequestBody SubscriptionDto subscriptionDto) {
+    public @ResponseBody ResponseEntity<ApiResponse> subscribe(@Valid @RequestBody SubscriptionDto subscriptionDto) {
         try {
             subscriptionService.subscribe(subscriptionDto);
         } catch (Exception e) {

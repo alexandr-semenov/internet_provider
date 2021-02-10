@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @Controller
 public class TariffController {
     private final TariffService tariffService;
-    private ResourceBundleMessageSource messageSource;
+    private final ResourceBundleMessageSource messageSource;
 
     public TariffController(TariffService tariffService, ResourceBundleMessageSource messageSource) {
         this.tariffService = tariffService;

@@ -1,11 +1,7 @@
 package com.company.provider.controller;
 
 import com.company.provider.entity.Product;
-import com.company.provider.entity.User;
 import com.company.provider.service.ProductService;
-import com.company.provider.service.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +16,9 @@ public class MainController {
     private final String KEY_TELEPHONY = "telephony";
 
     private final ProductService productService;
-    private UserService userService;
 
-    public MainController(ProductService serviceService, UserService userService) {
+    public MainController(ProductService serviceService) {
         this.productService = serviceService;
-        this.userService = userService;
     }
 
     @GetMapping("/")

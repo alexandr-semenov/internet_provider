@@ -10,16 +10,10 @@ import org.springframework.stereotype.Service;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    /**
-     * @param accountRepository AccountRepository
-     */
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    /**
-     * @param user User
-     */
     public void createAccount(User user) {
         Account account = new Account();
         account.setAmount(0.0);
@@ -28,24 +22,12 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    /**
-     * @param account Account
-     * @param amount Double
-     */
     public void depositAccount(Account account, Double amount) {
         Double currentAmount = account.getAmount();
         account.setAmount(currentAmount + amount);
         accountRepository.save(account);
     }
 
-    /**
-     * @param account Account
-     * @param amount Double
-     *
-     * @return boolean
-     *
-     * @throws InsufficientFundsException throws InsufficientFundsException
-     */
     public boolean debitAccount(Account account, Double amount) throws InsufficientFundsException {
         Double currentAmount = account.getAmount();
 

@@ -1,10 +1,9 @@
 package com.company.provider.service;
 
-import com.company.provider.dto.SubscriptionDto;
 import com.company.provider.dto.TariffDto;
 import com.company.provider.entity.Product;
-import com.company.provider.exeption.RestException;
 import com.company.provider.entity.Tariff;
+import com.company.provider.exeption.RestException;
 import com.company.provider.repository.TariffRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -18,7 +17,7 @@ public class TariffService {
     private final TariffRepository tariffRepository;
     private final ProductService productService;
     private final TariffOptionService tariffItemService;
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public TariffService(
             TariffRepository tariffRepository,

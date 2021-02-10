@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ProductController {
-    private ProductService productService;
-    private ResourceBundleMessageSource messageSource;
+    private final ProductService productService;
+    private final ResourceBundleMessageSource messageSource;
 
     public ProductController(ProductService productService, ResourceBundleMessageSource messageSource) {
         this.productService = productService;

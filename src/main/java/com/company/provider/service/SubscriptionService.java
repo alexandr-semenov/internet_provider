@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class SubscriptionService {
-    private SubscriptionRepository subscriptionRepository;
-    private UserService userService;
-    private AccountService accountService;
-    private TariffService tariffService;
-    private StatusService statusService;
+    private final SubscriptionRepository subscriptionRepository;
+    private final UserService userService;
+    private final AccountService accountService;
+    private final TariffService tariffService;
+    private final StatusService statusService;
 
     public SubscriptionService(
             SubscriptionRepository subscriptionRepository,
