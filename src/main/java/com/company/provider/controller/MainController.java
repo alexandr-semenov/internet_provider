@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
 @Controller
 public class MainController {
     private final String KEY_INTERNET = "internet";
@@ -22,12 +20,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String main(Model model) {
-
-        List<Product> productsList = productService.findAll();
-
-        model.addAttribute("products", productsList);
-
+    public String main() {
         return "main";
     }
 

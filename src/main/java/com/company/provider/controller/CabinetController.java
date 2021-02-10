@@ -3,7 +3,6 @@ package com.company.provider.controller;
 import com.company.provider.dto.AmountDto;
 import com.company.provider.entity.User;
 import com.company.provider.service.AccountService;
-import com.company.provider.service.SubscriptionService;
 import com.company.provider.utils.ApiResponse;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -21,16 +20,13 @@ import javax.validation.Valid;
 @Controller
 public class CabinetController {
     private final AccountService accountService;
-    private final SubscriptionService subscriptionService;
     private final ResourceBundleMessageSource messageSource;
 
     public CabinetController(
             AccountService accountService,
-            SubscriptionService subscriptionService,
             ResourceBundleMessageSource messageSource
     ) {
         this.accountService = accountService;
-        this.subscriptionService = subscriptionService;
         this.messageSource = messageSource;
     }
 
