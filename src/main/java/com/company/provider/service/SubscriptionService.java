@@ -67,19 +67,15 @@ public class SubscriptionService {
     public void tryToActivateSubscription(User user) {
         try {
             Subscription subscription = user.getSubscription();
+
             accountService.debitAccount(user.getAccount(), subscription.getPrice());
 
             Status status = statusService.getStatusByName("ACTIVE");
-
-            changeStatus(subscription, status);
+            subscription.setStatus(status);
+            subscriptionRepository.save(subscription);
         } catch (InsufficientFundsException e) {
             //TODO log failed activation
             System.out.println(e.getMessage());
         }
-    }
-
-    private void changeStatus(Subscription subscription, Status status) {
-        subscription.setStatus(status);
-        subscriptionRepository.save(subscription);
     }
 }

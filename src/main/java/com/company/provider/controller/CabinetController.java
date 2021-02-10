@@ -51,9 +51,7 @@ public class CabinetController {
     public ResponseEntity<ApiResponse> makeDeposit(@Valid @RequestBody AmountDto amountDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        accountService.depositAccount(user.getAccount(), amountDto.getAmount());
-
-        subscriptionService.tryToActivateSubscription(user);
+        accountService.depositAccount(user, amountDto.getAmount());
 
         ApiResponse apiResponse = new ApiResponse(
                 HttpStatus.CREATED,  messageSource.getMessage("success_deposit", null, LocaleContextHolder.getLocale())
