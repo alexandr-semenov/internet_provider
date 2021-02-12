@@ -3,7 +3,6 @@ package com.company.provider.service;
 import com.company.provider.entity.Account;
 import com.company.provider.entity.User;
 import com.company.provider.events.AccountEventPublisher;
-import com.company.provider.exeption.InsufficientFundsException;
 import com.company.provider.exeption.RestException;
 import com.company.provider.repository.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -41,10 +40,11 @@ public class AccountService {
         } catch (Exception e) {
             throw new RestException("deposit_fail");
         }
-
     }
 
-    public boolean debitAccount(Account account, Double amount) throws InsufficientFundsException {
+    public void debitAccount(User user) {
+        Double amount = user.getSubscription().getPrice();
+        Account account = user.getAccount();
         Double currentAmount = account.getAmount();
 
         if (currentAmount >= amount) {
@@ -52,8 +52,7 @@ public class AccountService {
             account.setAmount(newAmount);
             accountRepository.save(account);
 
-            return true;
+            accountEventPublisher.publishDebitSuccessEvent(user);
         }
-        throw new InsufficientFundsException("insufficient funds in the account");
     }
 }

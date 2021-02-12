@@ -70,4 +70,8 @@ public class Subscription {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+//    public enum Status {
+//
+//    }
 }

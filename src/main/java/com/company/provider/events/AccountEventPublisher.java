@@ -15,4 +15,8 @@ public class AccountEventPublisher {
     public void publishDepositSuccessEvent(User user) {
         publisher.publishEvent(new AccountDepositSuccessEvent(this, user));
     }
+
+    public void publishDebitSuccessEvent(User user) {
+        publisher.publishEvent(new AccountDebitSuccessEvent(this, user));
+    }
 }
