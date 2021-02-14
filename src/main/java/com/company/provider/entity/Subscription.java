@@ -22,8 +22,7 @@ public class Subscription {
     )
     List<Tariff> tariffs;
 
-    @ManyToOne()
-    @JoinColumn(name = "status_id")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     private Double price;
@@ -55,14 +54,6 @@ public class Subscription {
         this.tariffs = tariffs;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -71,7 +62,13 @@ public class Subscription {
         this.price = price;
     }
 
-//    public enum Status {
-//
-//    }
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public enum Status { ACTIVE, NOT_ACTIVE }
 }

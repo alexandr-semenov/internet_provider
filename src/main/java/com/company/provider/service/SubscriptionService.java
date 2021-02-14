@@ -2,11 +2,9 @@ package com.company.provider.service;
 
 import com.company.provider.dto.SubscriptionDto;
 import com.company.provider.dto.TariffDto;
-import com.company.provider.entity.Status;
 import com.company.provider.entity.Subscription;
 import com.company.provider.entity.Tariff;
 import com.company.provider.entity.User;
-import com.company.provider.exeption.InsufficientFundsException;
 import com.company.provider.repository.SubscriptionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -21,20 +19,17 @@ public class SubscriptionService {
     private final UserService userService;
     private final AccountService accountService;
     private final TariffService tariffService;
-    private final StatusService statusService;
 
     public SubscriptionService(
             SubscriptionRepository subscriptionRepository,
             UserService userService,
             AccountService accountService,
-            TariffService tariffService,
-            StatusService statusService
+            TariffService tariffService
     ) {
         this.subscriptionRepository = subscriptionRepository;
         this.userService = userService;
         this.accountService = accountService;
         this.tariffService = tariffService;
-        this.statusService = statusService;
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -46,27 +41,23 @@ public class SubscriptionService {
 
         List<Tariff> tariffs = tariffService.loadMultipleTariff(ids);
 
-        Status status = statusService.getStatusByName("NOT_ACTIVE");
-
-        createSubscription(user, tariffs, status);
+        createSubscription(user, tariffs);
     }
 
-    public void createSubscription(User user, List<Tariff> tariffs, Status status) {
+    public void createSubscription(User user, List<Tariff> tariffs) {
         Double price = tariffs.stream().map(Tariff::getPrice).reduce(0.0, Double::sum);
 
         Subscription subscription = new Subscription();
         subscription.setUser(user);
-        subscription.setStatus(status);
+        subscription.setStatus(Subscription.Status.NOT_ACTIVE);
         subscription.setTariffs(tariffs);
         subscription.setPrice(price);
-
         subscriptionRepository.save(subscription);
     }
 
     public void activateSubscription(User user) {
         Subscription subscription = user.getSubscription();
-        Status status = statusService.getStatusByName("ACTIVE");
-        subscription.setStatus(status);
+        subscription.setStatus(Subscription.Status.ACTIVE);
         subscriptionRepository.save(subscription);
     }
 }
