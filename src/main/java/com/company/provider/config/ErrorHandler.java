@@ -11,7 +11,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
@@ -19,14 +18,13 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ErrorHandler {
-    private ResourceBundleMessageSource messageSource;
+    private final ResourceBundleMessageSource messageSource;
 
     public ErrorHandler(ResourceBundleMessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
     @ExceptionHandler(RestException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiError> handleRestException(RestException e) {
         String message = messageSource.getMessage(e.getMessage(), null, LocaleContextHolder.getLocale());
 

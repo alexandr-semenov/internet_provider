@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 mx-auto">
-                    <h4 class="text-primary">Make Deposit</h4>
+                    <h4 class="text-primary" th:text="#{make_deposit}"></h4>
                     <form id="deposit-form" action="/cabinet/deposit">
                         <div class="mb-3">
                             <input id="amount" class="form-control border-primary text-primary" th:placeholder="#{amount_placeholder}" type="text" name="amount" value="">

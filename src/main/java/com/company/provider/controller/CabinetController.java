@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,7 @@ public class CabinetController {
         return "cabinet/deposit";
     }
 
+    @Transactional
     @PostMapping("/cabinet/deposit")
     public ResponseEntity<ApiResponse> makeDeposit(@Valid @RequestBody AmountDto amountDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
