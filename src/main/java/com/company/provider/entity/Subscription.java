@@ -30,6 +30,13 @@ public class Subscription {
     public Subscription() {
     }
 
+    private Subscription (Builder builder) {
+        user = builder.user;
+        tariffs = builder.tariffs;
+        status = builder.status;
+        price = builder.price;
+    }
+
     public Long getId() {
         return id;
     }
@@ -54,14 +61,6 @@ public class Subscription {
         this.tariffs = tariffs;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -70,5 +69,48 @@ public class Subscription {
         this.status = status;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public enum Status { ACTIVE, NOT_ACTIVE }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private User user;
+        private List<Tariff> tariffs;
+        private Status status;
+        private Double price;
+
+        public Builder setUser(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder setTariffs(List<Tariff> tariffs) {
+            this.tariffs = tariffs;
+            return this;
+        }
+
+        public Builder setStatus(Status status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder setPrice(Double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Subscription build() {
+            return new Subscription(this);
+        }
+    }
 }

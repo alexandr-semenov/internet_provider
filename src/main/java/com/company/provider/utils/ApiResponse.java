@@ -3,8 +3,8 @@ package com.company.provider.utils;
 import org.springframework.http.HttpStatus;
 
 public class ApiResponse {
-    private HttpStatus status;
-    private String message;
+    private final HttpStatus status;
+    private final String message;
 
     public ApiResponse(HttpStatus status, String message) {
         this.status = status;

@@ -50,16 +50,17 @@ public class TariffService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void createTariff(TariffDto tariffDto) {
-        Tariff tariff = new Tariff();
-        tariff.setName(tariffDto.getName());
-        tariff.setDescription(tariffDto.getDescription());
-        tariff.setPrice(tariffDto.getPrice());
-
         Product product = productService.getProduct(tariffDto.getProductId());
-        tariff.setProduct(product);
-        tariffRepository.save(tariff);
 
-        tariffItemService.createTariffOption(tariffDto, tariff);
+        Tariff tariff = Tariff.builder()
+                .setName(tariffDto.getName())
+                .setDescription(tariffDto.getDescription())
+                .setPrice(tariffDto.getPrice())
+                .setProduct(product)
+                .build();
+
+        tariffRepository.save(tariff);
+        tariffItemService.createTariffOptions(tariffDto, tariff);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)

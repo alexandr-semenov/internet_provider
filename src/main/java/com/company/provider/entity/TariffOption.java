@@ -18,6 +18,11 @@ public class TariffOption {
     public TariffOption() {
     }
 
+    private TariffOption(Builder builder) {
+        item = builder.item;
+        tariff = builder.tariff;
+    }
+
     public Long getId() {
         return id;
     }
@@ -40,5 +45,28 @@ public class TariffOption {
 
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String item;
+        private Tariff tariff;
+
+        public Builder setItem(String item) {
+            this.item = item;
+            return this;
+        }
+
+        public Builder setTariff(Tariff tariff) {
+            this.tariff = tariff;
+            return this;
+        }
+
+        public TariffOption build() {
+            return new TariffOption(this);
+        }
     }
 }

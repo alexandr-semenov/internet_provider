@@ -49,11 +49,12 @@ public class UserService implements UserDetailsService {
             throw new RestException("user_exist_exception");
         }
 
-        User user = new User();
-        user.setUsername(subscriptionDto.getUsername());
-        user.setPassword((new BCryptPasswordEncoder().encode(subscriptionDto.getPassword())));
-        user.setActive(false);
-        user.setRole(roleRepository.findByName("ROLE_USER"));
+        User user = User.builder()
+                .setUsername(subscriptionDto.getUsername())
+                .setPassword((new BCryptPasswordEncoder().encode(subscriptionDto.getPassword())))
+                .setActive(false)
+                .setRole(roleRepository.findByName("ROLE_USER"))
+                .build();
 
         return userRepository.save(user);
     }

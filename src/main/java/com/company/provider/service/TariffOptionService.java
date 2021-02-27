@@ -23,21 +23,23 @@ public class TariffOptionService {
         return tariffOptionRepository.findById(id).orElseThrow(() -> new RestException("tariff_option_not_found_exception", null, true, false));
     }
 
-    public void createTariffOption(TariffOptionDto tariffOptionDto, Tariff tariff) {
-        TariffOption item = new TariffOption();
-        item.setItem(tariffOptionDto.getOption());
-        item.setTariff(tariff);
+    public void createTariffOptions(TariffOptionDto tariffOptionDto, Tariff tariff) {
+        TariffOption item = TariffOption.builder()
+                .setItem(tariffOptionDto.getOption())
+                .setTariff(tariff)
+                .build();
 
         tariffOptionRepository.save(item);
     }
 
-    public void createTariffOption(TariffDto tariffDto, Tariff tariff) {
+    public void createTariffOptions(TariffDto tariffDto, Tariff tariff) {
         List<TariffOption> tariffItems = new ArrayList<>();
 
         for (TariffOptionDto option : tariffDto.getTariffOption()) {
-            TariffOption item = new TariffOption();
-            item.setItem(option.getOption());
-            item.setTariff(tariff);
+            TariffOption item = TariffOption.builder()
+                    .setItem(option.getOption())
+                    .setTariff(tariff)
+                    .build();
             tariffItems.add(item);
         }
 

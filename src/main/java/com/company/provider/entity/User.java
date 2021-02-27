@@ -34,6 +34,15 @@ public class User implements UserDetails {
     public User() {
     }
 
+    private User(Builder builder) {
+        username = builder.username;
+        password = builder.password;
+        active = builder.active;
+        role = builder.role;
+        subscription = builder.subscription;
+        account = builder.account;
+    }
+
     public Long getId() {
         return id;
     }
@@ -115,5 +124,52 @@ public class User implements UserDetails {
 
     public Account getAccount() {
         return account;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String username;
+        private String password;
+        private boolean active;
+        private Role role;
+        private Subscription subscription;
+        private Account account;
+
+        public Builder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setActive(boolean active) {
+            this.active = active;
+            return this;
+        }
+
+        public Builder setRole(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder setSubscription(Subscription subscription) {
+            this.subscription = subscription;
+            return this;
+        }
+
+        public Builder setAccount(Account account) {
+            this.account = account;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

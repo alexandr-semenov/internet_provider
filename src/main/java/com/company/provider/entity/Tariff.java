@@ -35,6 +35,15 @@ public class Tariff {
         this.name = name;
     }
 
+    private Tariff(Builder builder) {
+        name = builder.name;
+        description = builder.description;
+        price = builder.price;
+        product = builder.product;
+        options = builder.options;
+        subscriptions = builder.subscriptions;
+    }
+
     public Long getId() {
         return id;
     }
@@ -89,5 +98,52 @@ public class Tariff {
 
     public void setSubscriptions(Set<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String name;
+        private String description;
+        private Double price;
+        private Product product;
+        private List<TariffOption> options;
+        private Set<Subscription> subscriptions;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setPrice(Double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setProduct(Product product) {
+            this.product = product;
+            return this;
+        }
+
+        public Builder setOptions(List<TariffOption> options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder setSubscriptions(Set<Subscription> subscriptions) {
+            this.subscriptions = subscriptions;
+            return this;
+        }
+
+        public Tariff build() {
+            return new Tariff(this);
+        }
     }
 }

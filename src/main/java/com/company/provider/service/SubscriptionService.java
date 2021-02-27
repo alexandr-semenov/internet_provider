@@ -33,31 +33,36 @@ public class SubscriptionService {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public void subscribe(SubscriptionDto subscriptionDto) {
+    public boolean subscribe(SubscriptionDto subscriptionDto) {
         User user = userService.createUser(subscriptionDto);
         accountService.createAccount(user);
 
         List<Long> ids = subscriptionDto.getTariffs().stream().map(TariffDto::getId).collect(Collectors.toList());
-
         List<Tariff> tariffs = tariffService.loadMultipleTariff(ids);
-
         createSubscription(user, tariffs);
+
+        return true;
     }
 
-    public void createSubscription(User user, List<Tariff> tariffs) {
+    public boolean createSubscription(User user, List<Tariff> tariffs) {
         Double price = tariffs.stream().map(Tariff::getPrice).reduce(0.0, Double::sum);
 
-        Subscription subscription = new Subscription();
-        subscription.setUser(user);
-        subscription.setStatus(Subscription.Status.NOT_ACTIVE);
-        subscription.setTariffs(tariffs);
-        subscription.setPrice(price);
+        Subscription subscription = Subscription.builder()
+                .setUser(user)
+                .setStatus(Subscription.Status.NOT_ACTIVE)
+                .setTariffs(tariffs)
+                .setPrice(price)
+                .build();
         subscriptionRepository.save(subscription);
+
+        return true;
     }
 
-    public void activateSubscription(User user) {
+    public boolean activateSubscription(User user) {
         Subscription subscription = user.getSubscription();
         subscription.setStatus(Subscription.Status.ACTIVE);
         subscriptionRepository.save(subscription);
+
+        return true;
     }
 }

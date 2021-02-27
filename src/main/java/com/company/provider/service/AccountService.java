@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
-    private AccountEventPublisher accountEventPublisher;
+    private final AccountEventPublisher accountEventPublisher;
 
     public AccountService(
             AccountRepository accountRepository,

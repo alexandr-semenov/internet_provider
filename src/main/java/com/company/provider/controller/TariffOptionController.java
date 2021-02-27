@@ -34,7 +34,7 @@ public class TariffOptionController {
     @PostMapping("/admin/tariff/option/{id}")
     public ResponseEntity<ApiResponse> create(@PathVariable Long id, @Valid @RequestBody TariffOptionDto tariffOptionDto) {
         Tariff tariff = tariffService.loadTariffById(id);
-        tariffOptionService.createTariffOption(tariffOptionDto, tariff);
+        tariffOptionService.createTariffOptions(tariffOptionDto, tariff);
 
         ApiResponse response = new ApiResponse(
                 HttpStatus.CREATED, messageSource.getMessage("tariff_option_created", null, LocaleContextHolder.getLocale())
