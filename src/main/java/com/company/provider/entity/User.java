@@ -35,6 +35,7 @@ public class User implements UserDetails {
     }
 
     private User(Builder builder) {
+        id = builder.id;
         username = builder.username;
         password = builder.password;
         active = builder.active;
@@ -131,12 +132,18 @@ public class User implements UserDetails {
     }
 
     public static class Builder {
+        private Long id;
         private String username;
         private String password;
         private boolean active;
         private Role role;
         private Subscription subscription;
         private Account account;
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder setUsername(String username) {
             this.username = username;
