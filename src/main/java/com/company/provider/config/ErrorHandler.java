@@ -2,6 +2,8 @@ package com.company.provider.config;
 
 import com.company.provider.exeption.ApiError;
 import com.company.provider.exeption.RestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
     private final ResourceBundleMessageSource messageSource;
 
     public ErrorHandler(ResourceBundleMessageSource messageSource) {
@@ -27,7 +30,7 @@ public class ErrorHandler {
     @ExceptionHandler(RestException.class)
     public ResponseEntity<ApiError> handleRestException(RestException e) {
         String message = messageSource.getMessage(e.getMessage(), null, LocaleContextHolder.getLocale());
-
+        logger.error(message);
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), message);
 
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
@@ -37,7 +40,9 @@ public class ErrorHandler {
     public ResponseEntity<ApiError> handleEntityException(MethodArgumentNotValidException e) {
         List<String> errors = new ArrayList<>();
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
-            errors.add(messageSource.getMessage(error.getDefaultMessage(), null, LocaleContextHolder.getLocale()));
+            String message = messageSource.getMessage(error.getDefaultMessage(), null, LocaleContextHolder.getLocale());
+            logger.error(message);
+            errors.add(message);
         }
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), errors);
@@ -48,7 +53,7 @@ public class ErrorHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleEntityException(HttpMessageNotReadableException e) {
         String message = messageSource.getMessage("wrong_data_type_error", null, LocaleContextHolder.getLocale());
-
+        logger.error(message);
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage(), message);
 
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
