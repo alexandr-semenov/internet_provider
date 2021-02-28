@@ -5,10 +5,13 @@ import com.company.provider.entity.User;
 import com.company.provider.events.AccountEventPublisher;
 import com.company.provider.exeption.RestException;
 import com.company.provider.repository.AccountRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
+    Logger logger = LoggerFactory.getLogger(AccountService.class);
     private final AccountRepository accountRepository;
     private final AccountEventPublisher accountEventPublisher;
 
@@ -38,6 +41,7 @@ public class AccountService {
 
             accountEventPublisher.publishDepositSuccessEvent(user);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new RestException("deposit_fail");
         }
     }

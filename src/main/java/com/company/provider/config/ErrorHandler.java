@@ -58,4 +58,9 @@ public class ErrorHandler {
 
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
+
+    @ExceptionHandler(Throwable.class)
+    public void logException(Throwable e) {
+        logger.error(e.getMessage());
+    }
 }
