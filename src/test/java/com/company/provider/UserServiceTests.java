@@ -5,11 +5,14 @@ import com.company.provider.entity.User;
 import com.company.provider.repository.RoleRepository;
 import com.company.provider.repository.UserRepository;
 import com.company.provider.service.UserService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

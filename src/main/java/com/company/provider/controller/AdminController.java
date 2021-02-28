@@ -6,6 +6,7 @@ import com.company.provider.service.ProductService;
 import com.company.provider.service.TariffService;
 import com.company.provider.service.UserService;
 import com.company.provider.utils.ApiResponse;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.domain.Page;
@@ -45,11 +46,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/pending-users")
-    public String pendingUsers(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "5") int size,
-            Model model
-    ) {
+    public String pendingUsers(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size, Model model) {
         Page<User> userPage = userService.loadNotActiveUsersPaginated(page - 1, size);
 
         int totalPages = userPage.getTotalPages();
@@ -59,6 +56,7 @@ public class AdminController {
         }
 
         model.addAttribute("page", userPage);
+
         return "admin/pending-users";
     }
 
@@ -99,5 +97,4 @@ public class AdminController {
 
         return "admin/edit-tariff";
     }
-
 }

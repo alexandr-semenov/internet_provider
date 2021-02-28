@@ -3,6 +3,7 @@ package com.company.provider.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 public class TariffDto {

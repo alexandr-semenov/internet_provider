@@ -1,6 +1,7 @@
 package com.company.provider.events;
 
 import com.company.provider.entity.User;
+
 import org.springframework.context.ApplicationEvent;
 
 public class AccountDebitSuccessEvent extends ApplicationEvent {

@@ -1,6 +1,7 @@
 package com.company.provider.dto;
 
 import javax.validation.constraints.NotEmpty;
+
 import java.util.List;
 
 public class SubscriptionDto {
@@ -17,7 +18,12 @@ public class SubscriptionDto {
     public SubscriptionDto() {
     }
 
-    public SubscriptionDto(int productId, List<TariffDto> tariffs, @NotEmpty(message = "username_empty_error") String username, @NotEmpty(message = "password_empty_error") String password) {
+    public SubscriptionDto(
+            int productId,
+            List<TariffDto> tariffs,
+            @NotEmpty(message = "username_empty_error") String username,
+            @NotEmpty(message = "password_empty_error") String password
+    ) {
         this.productId = productId;
         this.tariffs = tariffs;
         this.username = username;

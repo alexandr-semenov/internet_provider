@@ -2,6 +2,7 @@ package com.company.provider.controller;
 
 import com.company.provider.entity.Product;
 import com.company.provider.service.ProductService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ public class MainController {
     private final String KEY_INTERNET_TV = "internet_tv";
     private final String KEY_TELEVISION = "television";
     private final String KEY_TELEPHONY = "telephony";
-
     private final ProductService productService;
 
     public MainController(ProductService serviceService) {
@@ -26,7 +26,6 @@ public class MainController {
 
     @GetMapping("/internet")
     public String internetPage(Model model) {
-
         Product product = productService.findByName(KEY_INTERNET);
         model.addAttribute("product", product);
 
@@ -35,7 +34,6 @@ public class MainController {
 
     @GetMapping("/internet-tv")
     public String internetTvPage(Model model) {
-
         Product product = productService.findByName(KEY_INTERNET_TV);
         model.addAttribute("product", product);
 
@@ -44,7 +42,6 @@ public class MainController {
 
     @GetMapping("/television")
     public String televisionPage(Model model) {
-
         Product product = productService.findByName(KEY_TELEVISION);
         model.addAttribute("product", product);
 
@@ -53,7 +50,6 @@ public class MainController {
 
     @GetMapping("/telephony")
     public String telephonyPage(Model model) {
-
         Product product = productService.findByName(KEY_TELEPHONY);
         model.addAttribute("product", product);
 

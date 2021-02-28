@@ -5,8 +5,10 @@ import com.company.provider.entity.User;
 import com.company.provider.events.AccountEventPublisher;
 import com.company.provider.exeption.RestException;
 import com.company.provider.repository.AccountRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,18 +17,16 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final AccountEventPublisher accountEventPublisher;
 
-    public AccountService(
-            AccountRepository accountRepository,
-            AccountEventPublisher accountEventPublisher
-    ) {
+    public AccountService(AccountRepository accountRepository, AccountEventPublisher accountEventPublisher) {
         this.accountRepository = accountRepository;
         this.accountEventPublisher = accountEventPublisher;
     }
 
     public void createAccount(User user) {
-        Account account = new Account();
-        account.setAmount(0.0);
-        account.setUser(user);
+        Account account = Account.builder()
+                .setAmount(0.0)
+                .setUser(user)
+                .build();
 
         accountRepository.save(account);
     }
@@ -34,7 +34,6 @@ public class AccountService {
     public void depositAccount(User user, Double amount) {
         try {
             Account account = user.getAccount();
-
             Double currentAmount = account.getAmount();
             account.setAmount(currentAmount + amount);
             accountRepository.save(account);

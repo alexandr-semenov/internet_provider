@@ -5,11 +5,13 @@ import com.company.provider.entity.Product;
 import com.company.provider.entity.Tariff;
 import com.company.provider.exeption.RestException;
 import com.company.provider.repository.TariffRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
 import java.util.List;
 
 @Service
@@ -36,12 +38,10 @@ public class TariffService {
     }
 
     public List<Tariff> loadMultipleTariff(List<Long> ids) {
-        List<Tariff> tariffs = entityManager
+        return entityManager
                 .createQuery("select t from Tariff t where t.id in (:tariffIds)", Tariff.class)
                 .setParameter("tariffIds", ids)
                 .getResultList();
-
-        return tariffs;
     }
 
     public Tariff loadTariffById(Long id) {

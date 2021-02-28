@@ -3,6 +3,7 @@ package com.company.provider.controller;
 import com.company.provider.dto.TariffDto;
 import com.company.provider.entity.Product;
 import com.company.provider.service.ProductService;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,8 @@ public class ProductController {
     public List<TariffDto> getProduct(@PathVariable Long productId) {
         Product product = productService.getProduct(productId);
 
-        List<TariffDto> tariffs = product.getTariffs().stream().map(tariff -> new TariffDto(tariff.getId(),
+        return product.getTariffs().stream().map(tariff -> new TariffDto(tariff.getId(),
                 messageSource.getMessage(tariff.getName(), null, LocaleContextHolder.getLocale())
         )).collect(Collectors.toList());
-
-        return tariffs;
     }
 }

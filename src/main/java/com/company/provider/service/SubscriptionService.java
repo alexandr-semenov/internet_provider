@@ -6,6 +6,7 @@ import com.company.provider.entity.Subscription;
 import com.company.provider.entity.Tariff;
 import com.company.provider.entity.User;
 import com.company.provider.repository.SubscriptionRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class SubscriptionService {
         return true;
     }
 
-    public boolean createSubscription(User user, List<Tariff> tariffs) {
+    private boolean createSubscription(User user, List<Tariff> tariffs) {
         Double price = tariffs.stream().map(Tariff::getPrice).reduce(0.0, Double::sum);
 
         Subscription subscription = Subscription.builder()

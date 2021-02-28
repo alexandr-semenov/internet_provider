@@ -2,6 +2,7 @@ package com.company.provider.events;
 
 import com.company.provider.service.AccountService;
 import com.company.provider.service.SubscriptionService;
+
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
